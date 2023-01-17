@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysqlserver
+  labels:
+    app: mysqlserver
+spec:
+  containers:
+  - name: mysql
+    image: mysql:8.0
+    
+    volumeMounts:
+    - name: mysql-volume
+      mountPaths: /var/lib/mysql/
+  
+  volumes:
+  - name: mysql-volume
+    persistentVolumeClaim:
+      claimName: mysql-pvc

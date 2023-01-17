@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webserver
+  labels:
+    app: apacheserver
+spec:
+  selector:
+    matchLabels:
+      app: myapache
+  template:
+    metadata:
+      labels:
+        app: myapache
+    spec:
+      containers:
+      - name: apache
+        image: fedora/apache
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: hostvolume
+          mountPath: /var/www/html/
+      volumes:
+      - name: hostvolume
+        hostPath:
+          path: /data
+        
